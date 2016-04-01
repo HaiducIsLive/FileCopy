@@ -1,0 +1,5 @@
+d:\! Documents\Haiduc\Visual Studio 2013\Projects\FileCopy\Contract\bin\Debug\Contract.dll
+d:\! Documents\Haiduc\Visual Studio 2013\Projects\FileCopy\Contract\bin\Debug\Contract.pdb
+d:\! Documents\Haiduc\Visual Studio 2013\Projects\FileCopy\Contract\obj\Debug\Contract.csprojResolveAssemblyReference.cache
+d:\! Documents\Haiduc\Visual Studio 2013\Projects\FileCopy\Contract\obj\Debug\Contract.dll
+d:\! Documents\Haiduc\Visual Studio 2013\Projects\FileCopy\Contract\obj\Debug\Contract.pdb

@@ -1,0 +1,109 @@
+﻿USE master
+GO
+
+IF DB_NAME() <> N'master' SET NOEXEC ON
+
+--
+-- Создать базу данных "FileCopy"
+--
+PRINT (N'Создать базу данных "FileCopy"')
+GO
+CREATE DATABASE FileCopy
+ON PRIMARY(
+    NAME = N'FileCopy',
+    FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.SQLEXPRESS\MSSQL\DATA\FileCopy.mdf',
+    SIZE = 5120KB,
+    MAXSIZE = UNLIMITED,
+    FILEGROWTH = 1024KB
+)
+LOG ON(
+    NAME = N'FileCopy_log',
+    FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.SQLEXPRESS\MSSQL\DATA\FileCopy_log.ldf',
+    SIZE = 1024KB,
+    MAXSIZE = UNLIMITED,
+    FILEGROWTH = 10%
+)
+GO
+
+--
+-- Изменить базу данных
+--
+PRINT (N'Изменить базу данных')
+GO
+ALTER DATABASE FileCopy
+  SET
+    ANSI_NULL_DEFAULT OFF,
+    ANSI_NULLS OFF,
+    ANSI_PADDING OFF,
+    ANSI_WARNINGS OFF,
+    ARITHABORT OFF,
+    AUTO_CLOSE OFF,
+    AUTO_CREATE_STATISTICS ON,
+    AUTO_SHRINK OFF,
+    AUTO_UPDATE_STATISTICS ON,
+    AUTO_UPDATE_STATISTICS_ASYNC OFF,
+    COMPATIBILITY_LEVEL = 120,
+    CONCAT_NULL_YIELDS_NULL OFF,
+    CURSOR_CLOSE_ON_COMMIT OFF,
+    CURSOR_DEFAULT GLOBAL,
+    DATE_CORRELATION_OPTIMIZATION OFF,
+    DB_CHAINING OFF,
+    HONOR_BROKER_PRIORITY OFF,
+    MULTI_USER,
+    NUMERIC_ROUNDABORT OFF,
+    PAGE_VERIFY CHECKSUM,
+    PARAMETERIZATION SIMPLE,
+    QUOTED_IDENTIFIER OFF,
+    READ_COMMITTED_SNAPSHOT OFF,
+    RECOVERY SIMPLE,
+    RECURSIVE_TRIGGERS OFF,
+    TRUSTWORTHY OFF
+    WITH ROLLBACK IMMEDIATE
+GO
+
+ALTER DATABASE FileCopy
+  SET DISABLE_BROKER
+GO
+
+ALTER DATABASE FileCopy
+  SET ALLOW_SNAPSHOT_ISOLATION OFF
+GO
+
+ALTER DATABASE FileCopy
+  SET FILESTREAM (NON_TRANSACTED_ACCESS = OFF)
+GO
+
+USE FileCopy
+GO
+
+IF DB_NAME() <> N'FileCopy' SET NOEXEC ON
+GO
+
+--
+-- Создать таблицу "dbo.tFiles"
+--
+PRINT (N'Создать таблицу "dbo.tFiles"')
+GO
+CREATE TABLE dbo.tFiles (
+  Id bigint IDENTITY,
+  FileName nvarchar(1024) NOT NULL,
+  Destination nvarchar(1024) NOT NULL,
+  FileSize bigint NOT NULL,
+  StartTime datetime NOT NULL,
+  EndTime datetime NOT NULL,
+  CONSTRAINT PK_tFiles PRIMARY KEY CLUSTERED (Id)
+)
+ON [PRIMARY]
+GO
+
+--
+-- Создать пользователя "tester"
+--
+PRINT (N'Создать пользователя "tester"')
+GO
+CREATE USER tester
+  WITHOUT LOGIN
+GO
+
+SET NOEXEC OFF
+GO
